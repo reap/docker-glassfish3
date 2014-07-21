@@ -17,7 +17,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y unzip
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y expect
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-6-jdk
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends openjdk-7-jre-headless=7u51-2.4.6-1ubuntu4
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends openjdk-7-jre=7u51-2.4.6-1ubuntu4
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends openjdk-7-jdk=7u51-2.4.6-1ubuntu4
 
 ADD glassfish-3.1.2.2-silent-installation-answers /glassfish-3.1.2.2-silent-installation-answers
 
