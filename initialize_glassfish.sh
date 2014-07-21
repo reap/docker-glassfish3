@@ -1,9 +1,15 @@
 #!/bin/bash
 
-/create_domain.sh
-/start_domain.sh
-/enable_secure_admin.sh
+# create domain
+/opt/glassfish3/bin/asadmin --user admin --passwordfile glassfish.passwords create-domain --portbase 6000 example
 
-/check_secure_admin.sh
+# start the domain and enable remote admistration
+/opt/glassfish3/bin/asadmin start-domain example
+/opt/glassfish3/bin/asadmin --user admin --passwordfile glassfish.passwords --port 6048 enable-secure-admin
 
-/stop_domain.sh
+# stop domain
+/opt/glassfish3/bin/asadmin stop-domain example
+
+
+
+

@@ -1,16 +1,16 @@
-# Docker image for providing running Glassfish 3.1.2.2 server
+# Docker image for providing running Glassfish 3.1.2.2 server using OpenJDK 1.6
 #
-# $ docker build -t glassfish3 .
-# $ docker run -i -t -p 6048:6048 -p 6080:6080 glassfish3
+#     https://github.com/reap/docker-glassfish3
+#
+# Build and run with:
+#     $ docker build -t glassfish3 .
+#     $ docker run -i -t -p 6048:6048 -p 6080:6080 glassfish3
 
 FROM phusion/baseimage:0.9.11
 MAINTAINER Ilari Liukko "ilari.liukko@iki.fi"
 
 # Set correct environment variables.
 ENV HOME /root
-
-# Use baseimage-docker's init system.
-CMD ["/sbin/my_init"]
 
 # install necessary applications
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -y
@@ -28,22 +28,22 @@ RUN sh /tmp/glassfish-3.1.2.2-unix.sh -s -a /glassfish-3.1.2.2-silent-installati
 RUN wget -q --no-cookies --no-check-certificate "http://jdbc.postgresql.org/download/postgresql-9.3-1102.jdbc4.jar" -O /opt/glassfish3/glassfish/lib/postgresql-9.1-903.jdbc4.jar
 
 ADD initialize_glassfish.sh /initialize_glassfish.sh
-ADD create_domain.sh /create_domain.sh
-ADD start_domain.sh /start_domain.sh
-ADD enable_secure_admin.sh /enable_secure_admin.sh
-ADD stop_domain.sh /stop_domain.sh
-ADD check_secure_admin.sh /check_secure_admin.sh
+ADD glassfish.passwords /glassfish.passwords
+
+RUN mkdir /etc/service/glassfish
+ADD run_glassfish.sh /etc/service/glassfish/run
+RUN chmod +x /etc/service/glassfish/run
 
 RUN chmod +x /*.sh
 
 # Set up Glassfish
 RUN /initialize_glassfish.sh
-# RUN /create_domain.sh
 
+# expose http-port and admin console port
 EXPOSE 6048 6080
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# TODO: replace with runit script, now overrides earlier "/sbin/my_init" call
-CMD /start_domain.sh
+# Use baseimage-docker's init system.
+CMD ["/sbin/my_init"]
