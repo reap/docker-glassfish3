@@ -39,7 +39,7 @@ mkdir /etc/service/glassfish-domain-${DOMAIN_NAME}
 cat >/etc/service/glassfish-domain-${DOMAIN_NAME}/run <<EOL
 #!/bin/sh
 
-$GLASSFISH_HOME/bin/asadmin start-domain -v ${DOMAIN_NAME}
+$GLASSFISH_HOME/bin/asadmin start-domain --debug -v ${DOMAIN_NAME}
 EOL
 chmod +x /etc/service/glassfish-domain-${DOMAIN_NAME}/run
 
