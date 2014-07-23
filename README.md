@@ -5,7 +5,7 @@ Docker base-image for providing Glassfish 3.1.2.2 server running on 1.7 JDK.
 
 ## Usage
 
-Example Dockerfile. Creates domain called example and intializes it to be started with runit.
+Example Dockerfile for image created on this. Creates domain called example and intializes it to be started with runit.
 
     # Docker image for providing running Glassfish 3.1.2.2 server
     #
