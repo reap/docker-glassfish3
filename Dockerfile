@@ -23,7 +23,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends op
 ADD glassfish-3.1.2.2-silent-installation-answers /glassfish-3.1.2.2-silent-installation-answers
 
 # Load and install Glassfish
-RUN wget -q --no-cookies --no-check-certificate "http://download.java.net/glassfish/3.1.2.2/release/glassfish-3.1.2.2-unix.sh" -O /tmp/glassfish-3.1.2.2-unix.sh
+RUN wget --no-cookies --no-check-certificate "http://download.java.net/glassfish/3.1.2.2/release/glassfish-3.1.2.2-unix.sh" -O /tmp/glassfish-3.1.2.2-unix.sh
 RUN sh /tmp/glassfish-3.1.2.2-unix.sh -s -a /glassfish-3.1.2.2-silent-installation-answers
 
 RUN echo /opt/glassfish3 > /etc/container_environment/GLASSFISH_HOME
